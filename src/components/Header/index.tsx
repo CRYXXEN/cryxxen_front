@@ -2,11 +2,12 @@ import React, {useState} from 'react'
 import cls from './Header.module.scss'
 import {ReactComponent as Logo} from '../../assets/images/CRYXXON.svg'
 import cn from 'classnames'
+import ModalWindow from "../ModalWindow";
 
 const Header = () => {
   const [isDropdown, setIsDropdown] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(isDropdown)
 
   return (
     <div className={cn(cls.root, {
@@ -32,9 +33,15 @@ const Header = () => {
          </nav>
        </div>
        <div className={cls.contact}>
-         <button>Get in touch</button>
+         <button onClick={() => setIsModalOpen(true)}>Get in touch</button>
        </div>
      </div>
+
+      <ModalWindow
+        isOpen={isModalOpen}
+        changeOpen={setIsModalOpen}
+      />
+
     </div>
   );
 };
