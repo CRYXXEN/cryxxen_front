@@ -23,12 +23,13 @@ const Header: FC<IHeaderProp> = (
     setIsModalOpen,
     handleSubmit,
     register,
+    reset,
     isValid,
     errors
   }) => {
   const [isDropdown, setIsDropdown] = useState(false)
 
-  const submitRequestHandler = (
+  const submitRequestHandler = async (
     {
       email,
       firstName,
@@ -37,12 +38,9 @@ const Header: FC<IHeaderProp> = (
       phone_number,
       interest_type
     }: IRequestForm) => {
-        const newData = {email, first_name: firstName, last_name: lastName, type: interest_type, message, phone_number}
+    const newData = {email, first_name: firstName, last_name: lastName, type: interest_type, message, phone_number}
 
-
-        requests.postRequest(newData).then(res => {
-          console.log(res)
-        })
+      requests.postRequest(newData).finally(reset)
   }
 
 
@@ -81,6 +79,7 @@ const Header: FC<IHeaderProp> = (
         register={register}
         errors={errors}
         isValid={isValid}
+        reset={reset}
         submitRequestHandler={submitRequestHandler}
       />
 

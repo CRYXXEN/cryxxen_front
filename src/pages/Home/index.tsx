@@ -1,4 +1,4 @@
-import React,  {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import cls from './Home.module.scss'
 import {AiFillStar} from "react-icons/ai";
 import {requests} from "../../config/index"
@@ -213,6 +213,8 @@ const Home = () => {
               ))
             }
           </ul>
+
+          <button onClick={() => setIsModalOpen(true)}>Cooperate</button>
         </div>
       </section>
 
@@ -234,6 +236,8 @@ const Home = () => {
               ))
             }
           </ul>
+
+          <button onClick={() => setIsModalOpen(true)}>Vacancies</button>
         </div>
       </section>
 

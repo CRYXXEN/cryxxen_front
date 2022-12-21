@@ -2,7 +2,7 @@ import React, {Dispatch, FC, SetStateAction} from 'react'
 import cls from './ModalWindow.module.scss'
 import {Dialog} from "@headlessui/react"
 import FormInput from "../FormInput"
-import {FieldErrors, FieldValues, UseFormHandleSubmit, UseFormRegister} from "react-hook-form"
+import {FieldErrors, FieldValues, UseFormHandleSubmit, UseFormRegister, UseFormReset} from "react-hook-form"
 import {NewRules} from "../../helpers/formRules/options"
 import {IRequestForm} from "../../models/main.page.model"
 
@@ -14,6 +14,7 @@ interface IModalWindowProp {
   submitRequestHandler: (data: IRequestForm) => void
   register: UseFormRegister<IRequestForm>
   isValid: boolean
+  reset: UseFormReset<IRequestForm>
   errors:  FieldErrors<IRequestForm>
 }
 
@@ -24,6 +25,7 @@ const ModalWindow: FC<IModalWindowProp> = (
     handleSubmit,
     register,
     isValid,
+    reset,
     errors,
     submitRequestHandler
   }) => {
@@ -90,15 +92,18 @@ const ModalWindow: FC<IModalWindowProp> = (
                 </div>
 
                 <div className={cls.message}>
-                  <span>{errors.message?.message}</span>
                   <textarea
                     placeholder="Your message..."
                     {...register('message', NewRules['message'])}
                   />
+                  <span>{errors.message?.message}</span>
                 </div>
               </div>
               <div className={cls.footer}>
-                <button onClick={() => changeOpen(false)}>Cancel</button>
+                <button onClick={() => {
+                  reset()
+                  changeOpen(false)
+                }}>Cancel</button>
                 <button type="submit" disabled={!isValid}>Send</button>
               </div>
             </form>

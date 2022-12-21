@@ -29,7 +29,7 @@ const FormInput: FC<IFormInputProp> = (
         placeholder={placeholder}
         {...register(registerName, NewRules[regexName])}
       />
-      <span>{error}</span>
+      <span>{error ? error : '     '}</span>
     </label>
   );
 };

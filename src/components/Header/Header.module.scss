@@ -13,6 +13,18 @@
     align-items: center;
     height: 80px;
 
+    @media (max-width: 1025px) {
+      max-width: 900px;
+    }
+
+    @media (max-width: 900px) {
+      max-width: 700px;
+    }
+
+    @media (max-width: 700px) {
+      max-width: 95%;
+    }
+
     .navigation{
       display: flex;
       align-items: center;
@@ -28,6 +40,11 @@
 
       nav{
         height: 100%;
+
+
+        @media (max-width: 700px) {
+          display: none;
+        }
 
         .navigationList{
           height: 100%;
@@ -68,6 +85,19 @@
 
         &:hover{
           background: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 1025px) {
+          font-size: 14px;
+        }
+
+        @media (max-width: 900px) {
+          font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+          padding: 10px 1.5rem;
+          font-size: 12px;
         }
       }
     }
