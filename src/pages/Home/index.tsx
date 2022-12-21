@@ -2,10 +2,11 @@ import React,  {useEffect, useState} from 'react'
 import cls from './Home.module.scss'
 import {AiFillStar} from "react-icons/ai";
 import {requests} from "../../config/index"
-import {IProject, IReview, IService, ITeam} from "../../models/main.page.model"
+import {IPartners, IProject, IRequestForm, IReview, IService, ITeam} from "../../models/main.page.model"
 import {ReactComponent as WorldMap} from "../../assets/images/map_allone 1.svg";
 import Loader from "../../components/Loader"
 import Header from "../../components/Header";
+import {useForm} from "react-hook-form";
 
 
 const Home = () => {
@@ -13,7 +14,17 @@ const Home = () => {
   const [reviewsData, setReviewsData] = useState<IReview[] | null>(null)
   const [servicesData, setServicesData] = useState<IService[] | null>(null)
   const [teamData, setTeamData] = useState<ITeam[] | null>(null)
+  const [partnersData, setPartnersData] = useState<IPartners[] | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const {
+    register,
+    handleSubmit,
+    formState: {isValid, errors},
+    reset,
+  } = useForm<IRequestForm>({
+    mode: 'onChange'
+  })
 
   useEffect(() => {
     requests.getProjects().then(res => {
@@ -22,6 +33,10 @@ const Home = () => {
 
     requests.getReviews().then(res => {
       setReviewsData(res.data)
+    })
+
+    requests.getPartners().then(res => {
+      setPartnersData(res.data)
     })
 
     requests.getServices().then(res => {
@@ -33,6 +48,7 @@ const Home = () => {
     })
   }, [])
 
+
   if (!reviewsData
     || !projectsData
     || !servicesData
@@ -40,7 +56,15 @@ const Home = () => {
   ) return <div className={cls.loading}><Loader/></div>
   return (
     <div className={cls.root}>
-      <Header/>
+      <Header
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        register={register}
+        reset={reset}
+        handleSubmit={handleSubmit}
+        errors={errors}
+        isValid={isValid}
+      />
       <section className={cls.startScreen}>
         <img
           className={cls.background}
@@ -115,7 +139,7 @@ const Home = () => {
           </ul>
 
           <button className={cls.studies}>
-            See the case studies
+            See more
           </button>
         </div>
       </section>
@@ -158,7 +182,7 @@ const Home = () => {
                         </ul>
                       </div>
                       <p>
-                        "{review.message}"
+                        «{review.message}»
                       </p>
                     </div>
                     <div className={cls.footer}>
@@ -169,6 +193,25 @@ const Home = () => {
               }
             </ul>
           </div>
+        </div>
+      </section>
+
+      <section className={cls.partners}>
+        <div className={cls.container}>
+          <h4>Our partners</h4>
+
+          <ul className={cls.partnersList}>
+            {
+              partnersData?.map(partner => (
+                <li key={partner.id}>
+                  <div className={cls.logo}>
+                    <img src={partner.image} alt="partner"/>
+                  </div>
+                  <span>{partner.title}</span>
+                </li>
+              ))
+            }
+          </ul>
         </div>
       </section>
 
@@ -197,3 +240,5 @@ const Home = () => {
 }
 
 export default Home
+
+//TODO: similar paddings in titles

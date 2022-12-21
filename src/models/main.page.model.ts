@@ -35,3 +35,31 @@ export interface ITeam {
   image: string;
   position: string;
 }
+
+export interface IRequestForm {
+  email: string
+  firstName: string
+  lastName: string
+  interest_type: string
+  message: string
+  phone_number: string
+}
+
+export interface IRequestResponse {
+  email: string
+  first_name: string
+  last_name: string
+  type: string
+  message: string
+  phone_number: string
+}
+
+
+export interface IPartners {
+  id: number;
+  created_at: Date;
+  updated_at: Date;
+  title: string;
+  ordering: number;
+  image: string;
+}
