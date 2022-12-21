@@ -7,6 +7,7 @@ import {ReactComponent as WorldMap} from "../../assets/images/map_allone 1.svg";
 import Loader from "../../components/Loader"
 import Header from "../../components/Header";
 import {useForm} from "react-hook-form";
+import Footer from "../../components/Footer";
 
 
 const Home = () => {
@@ -235,6 +236,8 @@ const Home = () => {
           </ul>
         </div>
       </section>
+
+      <Footer/>
     </div>
   )
 }
