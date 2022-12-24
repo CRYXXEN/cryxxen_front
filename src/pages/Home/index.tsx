@@ -54,6 +54,7 @@ const Home = () => {
     || !projectsData
     || !servicesData
     || !teamData
+    || !reviewsData
   ) return <div className={cls.loading}><Loader/></div>
   return (
     <div className={cls.root}>
@@ -153,10 +154,10 @@ const Home = () => {
             <div className={cls.reviewBoxHeading}>
               <h5>CRYXXEN Reviews</h5>
               <div className={cls.middleReview}>
-                <span className={cls.totalReview}>{reviewsData[0].total_stars}</span>
+                <span className={cls.totalReview}>{reviewsData[0]?.total_stars}</span>
                 <ul className={cls.stars}>
                   {
-                    Array.from({length: reviewsData[0].total_stars}).map((_, index) => (
+                    Array.from({length: reviewsData[0]?.total_stars}).map((_, index) => (
                       <li key={index}><AiFillStar/></li>
                     ))
                   }
